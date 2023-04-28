@@ -25,4 +25,4 @@ while 1:
     elif (msg) > 0 and (msg) < 4:
         print(f'\nA cotação atual do {moedas[msg]} é R${client.recv(1024).decode()}\n')
     else:
-        print('Opção inválida. Tente novamente.')
+        print(client.recv(1024).decode())

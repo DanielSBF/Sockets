@@ -49,9 +49,7 @@ while True:
     #Envia a cotação escolhida pelo cliente
     elif (msg) > 0 and (msg) < 4:
         con.send(str(moedas[msg]).encode())
-    else:
-        con.send("Opção inválida. Tente novamente.".encode())
-
+   
 
 
 

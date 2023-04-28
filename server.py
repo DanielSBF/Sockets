@@ -4,7 +4,7 @@ import requests
 import json
 
 #Menu
-op = """
+menu = """
  ____________________
 |                    |
 | Cotações de Moedas |
@@ -34,21 +34,21 @@ server = socket(AF_INET, SOCK_STREAM)
 server.bind((host,port))
 server.listen(5)
 con, addr = server.accept()
-con.send((op).encode())
+con.send((menu).encode())
 
 #Loop de conexão
 while True:
     # Recebe a escolha do cliente
-    msg = con.recv(1024).decode()
-    if msg == '0':
+    msg = int(con.recv(1024).decode())
+    #Classe de moedas
+    moedas = {1:cotacoes_dolar, 2:cotacoes_euro, 3:cotacoes_btc}
+    #Encerra a conexão 
+    if msg == 0:
         con.send("Até a próxima :)".encode())
         break
-    elif msg == '1':
-        con.send(str(cotacoes_dolar).encode())
-    elif msg == '2':
-        con.send(str(cotacoes_euro).encode())
-    elif msg == '3':
-        con.send(str(cotacoes_btc).encode())
+    #Envia a cotação escolhida pelo cliente
+    elif (msg) > 0 and (msg) < 4:
+        con.send(str(moedas[msg]).encode())
     else:
         con.send("Opção inválida. Tente novamente.".encode())
 
